@@ -58,15 +58,15 @@ To select the working Ada 2022 (WIP) compiler:
 
 * `alr toolchain --select`
 
-One may use plain `gprbuild`.
+One may use plain `gprbuild` instead of `alr build`.
 
 Typically:
 
 ```shell
 git clone https://github.com/AdaForge/Advent_of_Code_2022.git
 cd Advent_of_Code_2022/puzzle_08
-gprbuild
-bin/puzzle_08 data/Puzzle_08.txt
+alr build
+bin/puzzle_08 data/input.txt
 ```
 
 ---
