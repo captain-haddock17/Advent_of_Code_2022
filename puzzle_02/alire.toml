@@ -1,0 +1,9 @@
+name = "puzzle_02"
+description = "Shiny new project"
+version = "0.1.0-dev"
+
+authors = ["William J. Franck"]
+maintainers = ["William J. Franck <william@sterna.io>"]
+maintainers-logins = ["captain-haddock17"]
+
+executables = ["puzzle_02"]
