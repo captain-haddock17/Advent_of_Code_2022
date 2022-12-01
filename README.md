@@ -33,7 +33,7 @@ Other seasoned or just plain beginner developer have published their Ada code on
 
 ## Ada 2022
 
-I used the forthcoming [Ada 2022 syntax and language-libraries](http://www.ada-auth.org/standards/ada2x.html), essentially:
+I used the forthcoming [Ada 2022 syntax and language-libraries](http://www.ada-auth.org/standards/ada22.html), essentially:
 
 * `@` as a shorthand syntax, as in `Sum := @ + 1;`
 
@@ -45,6 +45,8 @@ I used the forthcoming [Ada 2022 syntax and language-libraries](http://www.ada-a
 * Compiler: GNAT from [GCC 12.2.0](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gnat_ugn/)
 * Build: [GNAT gprbuild](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html)
 * Package-Library manager: [Alire](https://alire.ada.dev)
+
+These Ada source code have been written and built on [macOS](https://www.apple.com/macos/ventura/), and also rebuilt and deployed on [FreeBSD](https://www.freebsd.org/about/) (as in CI/CD).
 
 ---
 
