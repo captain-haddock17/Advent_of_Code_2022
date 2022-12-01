@@ -7,3 +7,7 @@ maintainers = ["William J. Franck <william@sterna.io>"]
 maintainers-logins = ["captain-haddock17"]
 
 executables = ["puzzle_01"]
+
+[build-switches]
+"*".Ada_Version = "Ada2022"
+"*".style_checks = ["-gnatyM120"]
