@@ -25,6 +25,8 @@ use Ada.Integer_Text_IO;
 
 procedure Puzzle_01 is
 
+   Run_Args    : Command_Line.Program_args;
+
    subtype Calories is Natural;
 
    type Elf is record
@@ -33,16 +35,20 @@ procedure Puzzle_01 is
    end record;
 
    --  Rank of Elfs, with position 1 = Highest Calories value recorded
-   subtype Group_Rank is Positive range 1 .. 1;
+   subtype Group_Rank is Positive range 1 .. 3;
    type Group_of_Elfs is array (Group_Rank) of Elf;
 
-   Some_Elf : Elf := (Name => 0, Total_Food => 0);
+   Some_Elf : Elf := 
+      (Name => 0, Total_Food => 0);
    Elfs_with_most_Food : Group_of_Elfs :=
       (others => (Name => 0, Total_Food => 0));
 
    Elf_Index : Natural := 0;
-   Some_Food : Calories := 0;
+   Some_Food, Total_Calories : Calories := 0;
 
+   --  -----------------------
+   --  Elfs_with_Most_Calories
+   --  -----------------------
    function Elfs_with_Most_Calories (
       Some_Elf : Elf;
       Top_Elfs : Group_of_Elfs)
@@ -50,26 +56,41 @@ procedure Puzzle_01 is
 
       New_Top_Elfs : Group_of_Elfs := Top_Elfs;
    begin
+      New_Top_Elfs := Top_Elfs;
       for One_of in Group_Rank loop
          if Some_Elf.Total_Food > Top_Elfs (One_of).Total_Food then
             --  first retrograde the other elfs in the group
-            for Next in reverse One_of + 1 .. Group_Rank'Last loop
-               New_Top_Elfs (Next).Total_Food := Top_Elfs (Next - 1).Total_Food;
-               New_Top_Elfs (Next).Name := Top_Elfs (Next - 1).Name;
+            for Retrograded in reverse One_of + 1 .. Group_Rank'Last loop
+               New_Top_Elfs (Retrograded) := Top_Elfs (Retrograded - 1);
             end loop;
             --  now replace with new value
-            New_Top_Elfs (One_of).Total_Food := Some_Elf.Total_Food;
-            New_Top_Elfs (One_of).Name := Some_Elf.Name;
+            New_Top_Elfs (One_of) := Some_Elf;
+            exit;
          end if;
       end loop;
 
       return New_Top_Elfs;
    end Elfs_with_Most_Calories;
 
-   --  ----------------------------
+   -- ----------------------------
+   --  Compute_Total_Food_of_Group
+   -- ----------------------------
+   function Compute_Total_Food_of_Group (Top_Elfs : Group_of_Elfs) return Calories is
+      Total_Food_of_Group : Calories := 0;
+   begin
+      for One_of in Group_Rank loop
+            Total_Food_of_Group := @ + Top_Elfs (One_of).Total_Food;
+            if Run_Args.Trace then -- Trace
+               Put ("   " & Top_Elfs (One_of).Name'Image & ":");
+               Put_Line (Top_Elfs (One_of).Total_Food'Image);
+            end if;
+      end loop;
+      return Total_Food_of_Group;
+   end Compute_Total_Food_of_Group;
+
    --  File and Run-Time Parameters
    --  ----------------------------
-   Data_File   : Ada.Text_IO.File_Type;
+   Data_File : Ada.Text_IO.File_Type;
 
    package Data_Strings is
       new Ada.Strings.Bounded.Generic_Bounded_Length (Max => 10);
@@ -79,8 +100,10 @@ procedure Puzzle_01 is
    Last_Character_Index : Positive;
    Next_Elf : Boolean := True;
 
-   Run_Args    : Command_Line.Program_args;
 
+-- -----
+--  Main
+-- -----
 begin
    --  get the command lien arguments
    Command_Line.Get_Args (Args => Run_Args);
@@ -101,6 +124,7 @@ begin
       if Length (Some_Data) > 0 then
          if Next_Elf then
             Elf_Index := @ + 1;
+            Some_Elf.Name := Elf_Index;
             Next_Elf := False;
          end if;
 
@@ -108,30 +132,49 @@ begin
               Item => Some_Food,
               Last => Last_Character_Index);
 
-         --  Put_Line (Calories'Image (Some_Food));
-         --  Some_Elf.Name := Elf_Index;
+
+         if Run_Args.Trace then -- Trace
+            Put_Line (Elf_Index'Image & ':' & Some_Food'Image);
+         end if;
          Some_Elf.Total_Food := @ + Some_Food;
-      else
+      end if;
+      if Length (Some_Data) = 0  or End_Of_File (Data_File) then
+         Next_Elf := True;
+         if Run_Args.Trace then -- Trace
+            Put ("TOTAL =");
+            Put_Line (Some_Elf.Name'Image & ':' & Some_Elf.Total_Food'Image);
+         end if;
          Elfs_with_most_Food := Elfs_with_Most_Calories (
             Some_Elf => Some_Elf,
             Top_Elfs => Elfs_with_most_Food);
-         Next_Elf := True;
          Some_Elf.Total_Food := 0;
+         if Run_Args.Trace then  -- Trace
+            New_Line;
+         end if;
       end if;
 
    end loop;
 
    New_Line;
    if Elf_Index > 0 then
-      Put_Line ("Total Calories of Elf_with_most_Food ="
-         & Calories'Image (Elfs_with_most_Food (Group_Rank'First).Total_Food));
+
+      Put ("Total Calories of top Elf with most Food =");
+      Put_Line (Calories'Image (Elfs_with_most_Food (Group_Rank'First).Total_Food));
+      if Elfs_with_most_Food (Group_Rank'First).Total_Food = 24_000 then
+         Put_Line ("   Correct answer with test data ;-)");
+      end if;
+
+      Total_Calories := Compute_Total_Food_of_Group (Elfs_with_most_Food);
+
+      Put ("Total Calories of first" & Group_Rank'Last'Image & " Elfs with most Food =");
+      Put_Line (Calories'Image (Total_Calories));
+      if Total_Calories = 45_000 then
+         Put_Line ("   Correct answer with test data ;-)");
+      end if;
    else
       Put_Line ("No Elfs found in file ?!?!");
    end if;
 
-   if Elfs_with_most_Food (Group_Rank'First).Total_Food = 71_502 then
-      Put_Line ("Correct answer ;-)");
-   end if;
    New_Line;
 
    exception
