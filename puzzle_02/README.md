@@ -1,12 +1,13 @@
 ### Note
-Added some traces ...
 
-Run with traces
+1. Build
+
 ```shell
-bin/puzzle_02 -t data/test.dat
+cd puzzle_02
+alr build
 ```
 
-Run without traces
+2. Run 
 ```shell
 bin/puzzle_02 data/test.dat
 bin/puzzle_02 data/input.dat
