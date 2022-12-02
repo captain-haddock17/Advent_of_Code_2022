@@ -1,5 +1,5 @@
 name = "puzzle_02"
-description = "Shiny new project"
+description = "Advent of Code 2022 - Puzzle #2"
 version = "0.1.0-dev"
 
 authors = ["William J. Franck"]
@@ -7,3 +7,7 @@ maintainers = ["William J. Franck <william@sterna.io>"]
 maintainers-logins = ["captain-haddock17"]
 
 executables = ["puzzle_02"]
+
+[build-switches]
+"*".Ada_Version = "Ada2022"
+"*".style_checks = ["-gnatyM120"]

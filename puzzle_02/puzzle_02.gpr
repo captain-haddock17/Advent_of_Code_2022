@@ -9,6 +9,7 @@ project Puzzle_02 is
 
    package Compiler is
       for Default_Switches ("Ada") use Puzzle_02_Config.Ada_Compiler_Switches;
+      
    end Compiler;
 
    package Binder is
