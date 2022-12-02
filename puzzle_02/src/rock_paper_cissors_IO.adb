@@ -6,8 +6,8 @@
 --  -------------------------------------------------------------
 --  Initial creation date : 2022-12-02
 --  -------------------------------------------------------------
-pragma Ada_2022;
-pragma Style_Checks ("M120");
+-- pragma Ada_2022;
+-- pragma Style_Checks ("M120");
 
 package body Rock_Paper_Cissors_IO is
  
@@ -33,5 +33,22 @@ package body Rock_Paper_Cissors_IO is
    begin
       return RPC_Encoding (Element_Val (Element_Char));
    end Read_Play;
+
+   -- Part 2
+   function Read_Play_Part2 (
+      Data : Round_Record) 
+      return Score_Kind is
+
+      Element_Char : constant Character := Data (Play_Data_Position);
+
+      -- get the Play_Element value from a Character value
+      function Element_Val (C : Character) return Play_Element is
+      begin
+         return Play_Element'Enum_Val (Character'Pos (C));
+      end Element_Val;
+
+   begin
+      return Score_Encoding (Element_Val (Element_Char));
+   end Read_Play_Part2;
 
 end Rock_Paper_Cissors_IO;

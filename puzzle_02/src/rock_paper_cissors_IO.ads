@@ -40,12 +40,18 @@ package Rock_Paper_Cissors_IO is
       Y => Character'Pos('Y'),
       Z => Character'Pos('Z'));
 
+   -- Part 1
    type My_RPC_encoding_array is array (My_Play_Element) of Rock_Paper_Cissors_Element;
    My_RPC_encoding : constant My_RPC_encoding_array := 
       (X => Rock, Y => Paper, Z => Cissors);
 
    Elf_Play_Data_Position : constant Positive := 1;
    My_Play_Data_Position : constant Positive := 3;
+
+   -- Part 2
+   type My_Score_encoding_array is array (My_Play_Element) of Score_Kind;
+   My_Score_encoding : constant My_Score_encoding_array := 
+      (X => Lost, Y => Draw, Z => Win);
 
    --  ===================
    --  Handling of records
@@ -60,6 +66,16 @@ package Rock_Paper_Cissors_IO is
    function Read_Play (
       Data : Round_Record) 
       return Rock_Paper_Cissors_Element;
+
+   -- Part 2
+   generic 
+      type Play_Element is (<>); 
+      type Score_Encoding_array is array (Play_Element) of Score_Kind;
+      Score_Encoding : Score_Encoding_array;
+      Play_Data_Position : Positive;
+   function Read_Play_Part2 (
+      Data : Round_Record) 
+      return Score_Kind;
 
 private
 

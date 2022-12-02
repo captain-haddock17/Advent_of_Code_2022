@@ -6,8 +6,8 @@
 --  -------------------------------------------------------------
 --  Initial creation date : 2022-12-02
 --  -------------------------------------------------------------
-pragma Ada_2022;
-pragma Style_Checks ("M120");
+-- pragma Ada_2022;
+-- pragma Style_Checks ("M120");
 
 package Rock_Paper_Cissors is
    pragma Preelaborate;
@@ -31,12 +31,10 @@ package Rock_Paper_Cissors is
       Draw => 3,
       Win => 6);
 
-   subtype Score_Type is Natural;
-
    function My_Computed_Score (
       Player_ABC : Rock_Paper_Cissors_Element;
       Player_XYZ : Rock_Paper_Cissors_Element)
-      return Score_Type;
+      return Natural;
 
    --  =================
    --  Rules of the game
@@ -45,6 +43,11 @@ package Rock_Paper_Cissors is
       Player_ABC : Rock_Paper_Cissors_Element;
       Player_XYZ : Rock_Paper_Cissors_Element)
       return Score_Kind;
+
+   function Rock_Paper_Cissors_Rule (
+      Player_ABC : Rock_Paper_Cissors_Element;
+      Player_XYZ_Score : Score_Kind)
+      return Rock_Paper_Cissors_Element;
 
 private
 

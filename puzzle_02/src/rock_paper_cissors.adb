@@ -7,7 +7,7 @@
 --  Initial creation date : 2022-12-02
 --  -------------------------------------------------------------
 pragma Ada_2022;
-pragma Style_Checks ("M120");
+-- pragma Style_Checks ("M120");
 
 package body Rock_Paper_Cissors is
    --  ==================
@@ -21,7 +21,7 @@ package body Rock_Paper_Cissors is
    function My_Computed_Score (
       Player_ABC : Rock_Paper_Cissors_Element;
       Player_XYZ : Rock_Paper_Cissors_Element)
-      return Score_Type is
+      return Natural is
    begin
       return Rock_Paper_Cissors_Element'Enum_Rep (Player_XYZ)
          + Score_Kind'Enum_Rep (
@@ -64,6 +64,36 @@ package body Rock_Paper_Cissors is
                when Rock => return Win;
                when Paper => return Lost;
                when others => return Draw;
+            end case;
+      end case;
+   end Rock_Paper_Cissors_Rule;
+
+   function Rock_Paper_Cissors_Rule (
+      Player_ABC : Rock_Paper_Cissors_Element;
+      Player_XYZ_Score : Score_Kind)
+      return Rock_Paper_Cissors_Element is
+   begin
+      if Player_XYZ_Score = Draw then
+         return Player_ABC;
+      end if;
+      case Player_ABC is
+         when Rock =>
+            case Player_XYZ_Score is
+               when Win => return Paper;
+               when Lost => return Cissors;
+               when others => return Player_ABC;
+            end case;
+         when Paper =>
+            case Player_XYZ_Score is
+               when Lost => return Rock;
+               when Win => return Cissors;
+               when others => return Player_ABC;
+            end case;
+         when Cissors =>
+            case Player_XYZ_Score is
+               when Win => return Rock;
+               when Lost => return Paper;
+               when others => return Player_ABC;
             end case;
       end case;
    end Rock_Paper_Cissors_Rule;
