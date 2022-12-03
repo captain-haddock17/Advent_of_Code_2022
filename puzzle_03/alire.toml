@@ -6,7 +6,7 @@ authors = ["William J. Franck"]
 maintainers = ["William J. Franck <william@sterna.io>"]
 maintainers-logins = ["captain-haddock17"]
 
-executables = ["puzzle_03"]
+executables = ["puzzle_03", "puzzle_03_light"]
 
 [build-switches]
 "*".Ada_Version = "Ada2022"
