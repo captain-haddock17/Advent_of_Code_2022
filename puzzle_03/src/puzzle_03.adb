@@ -94,8 +94,10 @@ begin
 
       exception
          when Constraint_Error =>
-            Text_IO.Put (Standard_Error,
+            Text_IO.Put_Line (Standard_Error,
                "Total number of items in a rucksack is not even!");
+            Text_IO.Put_Line (Standard_Error, "Data: "& Some_Rucksack_Data);
+            raise;
       end;
 
       --  Find a common badge/priority item in grouped rucksacks
