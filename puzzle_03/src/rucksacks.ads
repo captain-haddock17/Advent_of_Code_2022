@@ -26,11 +26,6 @@ package Rucksacks is
 
    function Hash (Element : Item_Type) return Hash_Type;
 
-   function Equivalent_Elements
-      (Left, Right : Item_Type) 
-      return Boolean
-         renames "=";
-
    function Priority_of (Item : Item_Type) return Priority_Range;
 
    -- =========
@@ -46,7 +41,7 @@ package Rucksacks is
    package Rucksack_Compartment is new Ada.Containers.Hashed_Sets (
       Element_Type => Item_Type,
       Hash => Hash,
-      Equivalent_Elements => Equivalent_Elements,
+      Equivalent_Elements => "=",
       "=" =>  "=");
 
    use Rucksack_Compartment;
@@ -60,6 +55,11 @@ package Rucksacks is
    procedure Add (
       Item : Item_Type; 
       Into_Rucksack : in out Rucksack_Compartment.Set);
+
+   -- Part 2
+   Number_of_Grouped_Rucksack : constant Positive := 3;
+   type Grouped_Rucksack_array is 
+      array (Positive range 1 .. 3) of Rucksack_Compartment.Set;
 
 private
 

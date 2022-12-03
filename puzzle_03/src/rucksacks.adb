@@ -9,8 +9,6 @@
 -- pragma Ada_2022;
 -- pragma Style_Checks ("M120");
 
-with Ada.Containers.Hashed_Sets;
-
 package body Rucksacks is
 
    -- =====
