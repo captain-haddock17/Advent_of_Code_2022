@@ -10,4 +10,4 @@ executables = ["puzzle_03"]
 
 [build-switches]
 "*".Ada_Version = "Ada2022"
-"*".style_checks = ["-gnatyM120"]
+# "*".style_checks = ["-gnatyM120"]

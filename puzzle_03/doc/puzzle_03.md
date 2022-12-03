@@ -33,8 +33,8 @@ CrZsJsPPZsGzwwsLwLmpwMDw
 
 To help prioritize item rearrangement, every item type can be converted to a priority:
 
-* Lowercase item types a through z have priorities 1 through 26.
-* Uppercase item types A through Z have priorities 27 through 52.
+* Lowercase item types `a` through `z` have priorities 1 through 26.
+* Uppercase item types `A` through `Z` have priorities 27 through 52.
 
 In the above example, the priority of the item type that appears in both compartments of each rucksack is 16 `p`, 38 `L`, 42 `P`, 22 `v`, 20 `t`, and 19 `s`; the sum of these is **157**.
 
@@ -45,7 +45,7 @@ In the above example, the priority of the item type that appears in both compart
 
 As you finish identifying the misplaced items, the Elves come to you with another issue.
 
-For safety, the Elves are divided into groups of three. Every Elf carries a badge that identifies their group. For efficiency, within each group of three Elves, the badge is the only item type carried by all three Elves. That is, if a group's badge is item type B, then all three Elves will have item type B somewhere in their rucksack, and at most two of the Elves will be carrying any other item type.
+For safety, the Elves are divided into groups of three. Every Elf carries a badge that identifies their group. For efficiency, within each group of three Elves, the badge is the only item type carried by all three Elves. That is, if a group's badge is item type `B`, then all three Elves will have item type `B` somewhere in their rucksack, and at most two of the Elves will be carrying any other item type.
 
 The problem is that someone forgot to put this year's updated authenticity sticker on the badges. All of the badges need to be pulled out of the rucksacks so the new authenticity stickers can be attached.
 

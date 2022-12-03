@@ -1,3 +1,4 @@
+pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 --  SPDX-License-Identifier: CC-BY-SA-4.0
 --  SPDX-FileCopyrightText: Copyright 2022 William J. FRANCK (william@sterna.io)
@@ -6,14 +7,13 @@
 --  -------------------------------------------------------------
 --  Initial creation date : 2022-12-03
 --  -------------------------------------------------------------
--- pragma Ada_2022;
--- pragma Style_Checks ("M120");
+--  pragma Ada_2022;
 
 package body Rucksacks is
 
-   -- =====
+   --  ====
    --  Item
-   -- =====
+   --  ====
 
    --  ----
    --  Hash
@@ -38,17 +38,20 @@ package body Rucksacks is
       end case;
    end Priority_of;
 
-   -- =========
+   --  ========
    --  Rucksack
-   -- =========
+   --  ========
 
    --  -----------------
    --  Find_First_Common
    --  -----------------
-   function Find_First_Common (Left, Right : Rucksack_Compartment.Set) return Item_Type is
+   function Find_First_Common (
+      Left, Right : Rucksack_Compartment.Set)
+      return Item_Type is
+
       Common_Set : Rucksack_Compartment.Set;
    begin
-      if not (Is_Empty (Left) or Is_Empty (Right)) then
+      if not (Is_Empty (Left) or else Is_Empty (Right)) then
          Common_Set := Intersection (Left, Right);
          return Rucksack_Compartment.Element (Position => First (Common_Set));
       else
@@ -56,14 +59,23 @@ package body Rucksacks is
       end if;
    end Find_First_Common;
 
+   function Find_First_Common (Set : Rucksack_Compartment.Set) return Item_Type is
+   begin
+      if not Is_Empty (Set) then
+         return Rucksack_Compartment.Element (Position => First (Set));
+      else
+         raise No_Common_Badge;
+      end if;
+   end Find_First_Common;
+
    --  -----------------
    --  Add
    --  -----------------
    procedure Add (
-      Item : Item_Type; 
-      Into_Rucksack : in out Rucksack_Compartment.Set ) is
+      Item : Item_Type;
+      Into_Rucksack : in out Rucksack_Compartment.Set) is
    begin
       Include (Into_Rucksack, Item);
-   end;
+   end Add;
 
 end Rucksacks;
