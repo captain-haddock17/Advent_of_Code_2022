@@ -1,0 +1,13 @@
+name = "puzzle_04"
+description = "Advent of Code 2022 - Puzzle #4"
+version = "0.1.0-dev"
+
+authors = ["William J. Franck"]
+maintainers = ["William J. Franck <william@sterna.io>"]
+maintainers-logins = ["captain-haddock17"]
+
+executables = ["puzzle_04"]
+
+[build-switches]
+"*".Ada_Version = "Ada2022"
+# "*".style_checks = ["-gnatyM120"]
