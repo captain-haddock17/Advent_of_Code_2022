@@ -24,7 +24,7 @@ package Sections is
       Last  : Section_ID;
    end record;
 
-   type Overlapping is (No, Partly, Full);
+   type Overlapping is (No, Partly, Fully);
 
    procedure Read_Section (
       Stream : not null access Root_Stream_Type'Class;

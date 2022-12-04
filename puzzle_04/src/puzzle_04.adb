@@ -34,7 +34,7 @@ procedure Puzzle_04 is
    --  Part1
    Total_Inclusive_Sections : Natural := 0;
    --  Part2
-   Total_Partial_Inclusive_Sections : Natural := 0;
+   Total_Partly_Inclusive_Sections : Natural := 0;
 
 -- -----
 --  Main
@@ -65,7 +65,7 @@ begin
             Data.Elf_1_assignement,
             Data.Elf_2_assignement)
       then
-         Total_Partial_Inclusive_Sections := @ + 1;
+         Total_Partly_Inclusive_Sections := @ + 1;
       end if;
 
       --  Part 1
@@ -102,14 +102,14 @@ begin
 
    --  Print result of Part 2
    --  ======================
-   Put ("Total of partial inclusive pairs (Part 2) =");
-   Put_Line (Total_Partial_Inclusive_Sections'Image);
+   Put ("Total of partly inclusive pairs (Part 2) =");
+   Put_Line (Total_Partly_Inclusive_Sections'Image);
 
    --  Verify if result is as expected
-   if Total_Partial_Inclusive_Sections = 4 then
+   if Total_Partly_Inclusive_Sections = 4 then
       Put_Line ("   Correct answer with test data ;-)");
    end if;
-   if Total_Partial_Inclusive_Sections = 907 then
+   if Total_Partly_Inclusive_Sections = 907 then
       Put_Line ("   Correct answer with input data ;-)");
    end if;
 
