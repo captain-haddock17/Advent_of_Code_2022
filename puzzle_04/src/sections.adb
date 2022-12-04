@@ -29,24 +29,31 @@ package body Sections is
    --  ------------
    --  Read_Section
    --  ------------
+   pragma Warnings (Off, "formal parameter ""Stream"" is not referenced");
    procedure Read_Section (
       Stream : not null access Root_Stream_Type'Class;
       Item   : out Section_Range) is
+      Negative_Section_ID : Section_ID'Base;
    begin
       Get (Item.First);
-      Get (Item.Last);
+      Get (Negative_Section_ID);
+      Item.Last := -Negative_Section_ID;
    end Read_Section;
+   pragma Warnings (On, "formal parameter ""Stream"" is not referenced");
 
    --  -------------
    --  Write_Section (for the purpose of tracing)
    --  -------------
+   pragma Warnings (Off, "formal parameter ""Stream"" is not referenced");
    procedure Write_Section (
       Stream : not null access Root_Stream_Type'Class;
       Item   : Section_Range) is
    begin
       Put ('[' & Item.First'Image);
+      Put (" ..");
       Put (Item.Last'Image & ']');
    end Write_Section;
+   pragma Warnings (On, "formal parameter ""Stream"" is not referenced");
 
    --  Part 1
    --  -------------------
@@ -56,7 +63,9 @@ package body Sections is
       --  Symetric rule
       function Rule (Left, Right : Section_Range) return Boolean is
       begin
-         if (Left.First <= Right.First) and then (-Right.Last <= -Left.Last) then
+         if (Left.First <= Right.First)
+         and then (Right.Last <= Left.Last)
+         then
             return True;
          else
             return False;
@@ -64,8 +73,10 @@ package body Sections is
       end Rule;
 
    begin
+      pragma Warnings (Off, "actuals for this call may be in wrong order");
       if Rule (Left, Right)
-      or Rule (Right, Left) then
+      or else Rule (Right, Left)
+      then
          if Run_Args.Trace then -- Trace
             Put (HT & "Fully");
          end if;
@@ -73,6 +84,7 @@ package body Sections is
       else
          return False;
       end if;
+      pragma Warnings (On, "actuals for this call may be in wrong order");
    end Is_Fully_Overlapping;
 
    --  Part 2
@@ -83,9 +95,13 @@ package body Sections is
       --  Symetric rule
       function Rule (Left, Right : Section_Range) return Boolean is
       begin
-         if (Left.First <= Right.First) and then (Right.First <= -Left.Last) then
+         if (Left.First <= Right.First)
+         and then (Right.First <= Left.Last)
+         then
             return True;
-         elsif (-Left.Last <= -Right.Last) and then (Right.First <= -Left.Last) then
+         elsif (Left.Last <= Right.Last)
+         and then (Right.First <= Left.Last)
+         then
             return True;
          else
             return False;
@@ -93,8 +109,10 @@ package body Sections is
       end Rule;
 
    begin
+      pragma Warnings (Off, "actuals for this call may be in wrong order");
       if Rule (Left, Right)
-      or Rule (Right, Left) then
+      or else Rule (Right, Left)
+      then
          if Run_Args.Trace then -- Trace
             Put (HT & "Partly");
          end if;
@@ -102,6 +120,7 @@ package body Sections is
       else
          return False;
       end if;
+      pragma Warnings (On, "actuals for this call may be in wrong order");
    end Is_Partly_Overlapping;
 
 end Sections;

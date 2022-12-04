@@ -59,7 +59,7 @@ begin
 
       if Run_Args.Trace then -- Trace
          Data_Record'Write (Out_Stream, Data);
-         Put ("   ");
+         Put ("     ");
       end if;
 
       --  Part 2
@@ -89,7 +89,7 @@ begin
 
    --  Print result of Part 1
    --  ======================
-   Put ("Total of Full inclusive pairs (Part 1) =");
+   Put ("Total of fully inclusive pairs (Part 1) =");
    Put_Line (Total_Inclusive_Sections'Image);
 
    --  Verify if result is as expected

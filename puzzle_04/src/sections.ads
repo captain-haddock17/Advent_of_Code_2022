@@ -18,11 +18,10 @@ package Sections is
    --  =======
    --  Section
    --  =======
-   subtype First_Section_ID is Integer range 1 .. 99;
-   subtype Last_Section_ID is Integer range -99 .. -1;
+   subtype Section_ID is Integer range 1 .. 99;
    type Section_Range is record
-      First : First_Section_ID;
-      Last  : Last_Section_ID;
+      First : Section_ID;
+      Last  : Section_ID;
    end record;
 
    type Overlapping is (No, Partly, Full);
