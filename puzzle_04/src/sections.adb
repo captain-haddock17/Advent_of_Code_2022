@@ -23,9 +23,6 @@ use Command_Line;
 
 package body Sections is
 
-   --  get the command line arguments
-   Run_Args : Command_Line.Program_args;
-
    --  ------------
    --  Read_Section
    --  ------------

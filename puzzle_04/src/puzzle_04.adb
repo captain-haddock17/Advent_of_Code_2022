@@ -24,8 +24,6 @@ use Ada.Text_IO;
 
 procedure Puzzle_04 is
 
-   Run_Args    : Command_Line.Program_args;
-
    --  File and Run-Time Parameters
    --  ============================
    Data_File   : File_Type;

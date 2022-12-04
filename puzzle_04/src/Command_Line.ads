@@ -21,6 +21,8 @@ package Command_Line is
 
    BAD_ARGUMENTS : exception;
 
+   Run_Args    : Command_Line.Program_args;
+
    procedure Get_Args (Args : in out Program_args);
 
 end Command_Line;
