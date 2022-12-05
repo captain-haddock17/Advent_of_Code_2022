@@ -9,15 +9,13 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Crane;
-use Crane;
+--  with Piles_of_Crates;
+--  use Piles_of_Crates;
 
-package Crane_IO is
+package Cranes.CrateMover_9001 is
 
---   pragma Preelaborate;
-
-   function Read_Action (Data : String) return Order;
+      procedure Action (Move : Order; on_Piles : in out Piles_array);
 
 private
 
-end Crane_IO;
+end Cranes.CrateMover_9001;

@@ -9,20 +9,13 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Crates;
-use Crates;
+--  with Piles_of_Crates;
+--  use Piles_of_Crates;
 
-package body Crane is
+package Cranes.CrateMover_9000 is
 
-   procedure Action (Move : Order; on_Piles : in out Piles_array) is
-      Some_Crate : Crate_ID := '$';
-   begin
-      for I in 1 .. Move.Quantity loop
-         if on_Piles (Move.From).Top /= null then
-            on_Piles (Move.From).Top := Pop (Some_Crate, on_Piles (Move.From).Top);
-            on_Piles (Move.To).Top := Push (Some_Crate, on_Piles (Move.To).Top);
-         end if;
-      end loop;
-   end Action;
+   procedure Action (Move : Order; on_Piles : in out Piles_array);
 
-end Crane;
+private
+
+end Cranes.CrateMover_9000;

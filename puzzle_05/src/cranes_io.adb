@@ -21,7 +21,7 @@ use Ada.Integer_Text_IO;
 with Ada.Text_IO;
 use  Ada.Text_IO;
 
-package body Crane_IO is
+package body Cranes_IO is
 
    function Read_Action (Data : String) return Order is
       Some_Order : Order := (0, Pile_ID_range'First, Pile_ID_range'First);
@@ -59,15 +59,15 @@ package body Crane_IO is
                     Item => Some_Order.To,
                     Last => Data_Index);
             else
-               Put_Line (Standard_Error, "*** Error on "& to_str);
+               Put_Line (Standard_Error, "*** Error on " & to_str);
                Put_Line (Standard_Error, Data (Data_Index .. Data'Length));
             end if;
          else
-               Put_Line (Standard_Error, "*** Error on "& from_str);
+               Put_Line (Standard_Error, "*** Error on " & from_str);
                Put_Line (Standard_Error, Data (Data_Index .. Data'Length));
          end if;
       else
-         Put_Line (Standard_Error, "*** Error on "& move_str);
+         Put_Line (Standard_Error, "*** Error on " & move_str);
          Put_Line (Standard_Error, Data (Data_Index .. Data'Length));
       end if;
 
@@ -76,10 +76,10 @@ package body Crane_IO is
          Put (Some_Order.From'Image);
          Put (" -->");
          Put (Some_Order.To'Image);
-         new_Line;
+         New_Line;
       end if;
 
       return Some_Order;
    end Read_Action;
 
-end Crane_IO;
+end Cranes_IO;

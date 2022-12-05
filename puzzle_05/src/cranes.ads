@@ -12,20 +12,18 @@ pragma Ada_2022;
 with Piles_of_Crates;
 use Piles_of_Crates;
 
-package Crane is
+package Cranes is
 
 --   pragma Preelaborate;
 
    --  =====
-   --  Crane
+   --  Cranes
    --  =====
    type Order is record
       Quantity : Natural;
       From, To : Pile_ID_range;
    end record;
 
-   procedure Action (Move : Order; on_Piles : in out Piles_array);
-
 private
 
-end Crane;
+end Cranes;

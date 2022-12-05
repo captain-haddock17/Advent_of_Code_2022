@@ -49,12 +49,10 @@ package body Piles_of_Crates_IO is
    --  -----
    procedure Write (Pile : Crate_on_Pile) is
       Pile_Index : Crate_on_Pile := Pile;
-      I : integer := 1;
    begin
       while Pile_Index /= null loop
          Put (Pile_Index.Crate);
          Pile_Index := Pile_Index.Next;
-         I := @ + 1;
       end loop;
    end Write;
 

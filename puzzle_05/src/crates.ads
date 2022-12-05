@@ -28,7 +28,7 @@ package Crates is
    end record;
 
    function Insert (Crate : Crate_ID;
-                    Into_Pile : in out Crate_on_Pile)
+                    Into_Pile : Crate_on_Pile)
                     return Crate_on_Pile; -- Top Crate
 
    function Push (Crate : Crate_ID;

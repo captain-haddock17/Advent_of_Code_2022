@@ -20,7 +20,7 @@ package body Crates is
    --  Insert
    --  ------
    function Insert (Crate : Crate_ID;
-                    Into_Pile : in out Crate_on_Pile)
+                    Into_Pile : Crate_on_Pile)
                     return Crate_on_Pile -- current Crate
    is
       Pile : Crate_on_Pile;
@@ -31,6 +31,7 @@ package body Crates is
       Pile.Next := null;
       if Into_Pile /= null then
          Into_Pile.Next := Pile;
+      --  Pile.Next := Into_Pile.Next;
       end if;
       return Pile;  -- Top_Crate
    end Insert;
