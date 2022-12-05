@@ -9,7 +9,7 @@
 Note:
 
 * NOT using any of the `Ada.Containers` i.e *moves* of crates are processed while reading the data file -- no recording.
-* Could have used `Ada.Text_IO.Text_Streams` and `Ada.Streams` to read *move* records of second part of data file. (see `package Cranes_IO`)
+* Could have best used `Ada.Text_IO.Text_Streams` and `Ada.Streams` to read *move* records of second part of data file. (see `package Cranes_IO`)
 
 ### Build
 
