@@ -11,16 +11,27 @@ pragma Ada_2022;
 
 with RoundRobin_Buffer;
 
-package Start_of_Packet_Marker is
+generic
 
-   Start_of_Packet_Marker_Length : constant Positive := 4;
-   type Start_of_Packet_Marker_Index is mod Start_of_Packet_Marker_Length;
+   type Marker_Index is mod <>;
 
-   package Start_of_Packet_Marker_Buffer is new RoundRobin_Buffer
-     (Element_Type => Character, Circular => Start_of_Packet_Marker_Index);
+package Marker is
 
-   function Start_of_Packet_Marker_Found (Buffer : Start_of_Packet_Marker_Buffer.Circular_Buffer) return Boolean;
+   Marker_Length : Positive := Integer (Marker_Index'Last) + 1;
+
+   package Marker_Buffer is new RoundRobin_Buffer
+     (Element_Type => Character, Circular => Marker_Index);
+
+   procedure Analyse_Buffer (
+         Buffer : in out Marker_Buffer.Circular_Buffer;
+         Data   : Character;
+         Index : Natural;
+         Marker_Present : in out Boolean;
+         Starting_at : in out Natural);
+
+   function Marker_Found
+     (Buffer : Marker_Buffer.Circular_Buffer) return Boolean;
 
 private
 
-end Start_of_Packet_Marker;
+end Marker;

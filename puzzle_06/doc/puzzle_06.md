@@ -26,7 +26,7 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
 After the first three characters `mjq` have been received, there haven't been enough characters received yet to find the marker. The first time a marker could occur is after the fourth character is received, making the most recent four characters mjqj. Because j is repeated, this isn't a marker.
 
 The first time a marker appears is after the **seventh** character arrives. 
-Once it does, the last four characters received are `jpqm`, which are all different. In this case, your subroutine should report the value **7**, because the first start-of-packet marker is complete after 7 characters have been processed.
+Once it does, the last four characters received are `jpqm`, which are all different. In this case, your subroutine should report the value **7**, because the first *start-of-packet marker* is complete after **7 characters** have been processed.
 
 Here are a few more examples:
 
@@ -41,7 +41,7 @@ Here are a few more examples:
 
 Your device's communication system is correctly detecting packets, but still isn't working. It looks like it also needs to look for **messages**.
 
-A **start-of-message marker** is just like a start-of-packet marker, except it consists of **14 distinct characters** rather than 4.
+A **start-of-message marker** is just like a `start-of-packet marker`, except it consists of **14 distinct characters** rather than 4.
 
 Here are the first positions of start-of-message markers for all of the above examples:
 

@@ -28,8 +28,8 @@ package body RoundRobin_Buffer is
       --  ------
       entry Insert (Item : Element_Type) when not Full is
       begin
-         Last          := @ + 1;
          Buffer (Last) := Item;
+         Last          := @ + 1;
          Counter       := @ + 1;
       end Insert;
 
@@ -38,7 +38,7 @@ package body RoundRobin_Buffer is
       --  ----
       function Read (Index : Circular) return Element_Type is
       begin
-         return Buffer (First + Index + 1);
+         return Buffer (First + Index);
       end Read;
 
       --  -------
