@@ -15,7 +15,8 @@ package Crates is
    --  ======
    --  Crates
    --  ======
-   subtype Crate_ID is Character;
+   subtype Crate_ID is Character; 
+      with Static_Predicate =>  Crate_ID in ' ' | 'A' .. 'Z';
 
    --  ==============
    --  Pile of Crates
