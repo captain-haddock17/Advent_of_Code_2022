@@ -24,14 +24,14 @@ procedure Puzzle_08 is
    --  ============================
    Data_File  : File_Type;
 
+   --  Data
+   My_Forest : Grid := (others => ( 
+                           others => (Height => 0, Is_Visible => True)));
+   NS_Dim : Natural := 0;
+   WE_Dim : Natural := 0;
 
    --  Part 1
-   
-   --  Border of grid is 0 and  Data'Length + 1; value (already) set to 0
-   My_Forest : Grid;  -- will be inititialized by Load_Grid_Line()
-
    Total_Visible_Trees : Natural := 0;
-
 
 -- -----
 --  Main
@@ -46,62 +46,45 @@ begin
      (File => Data_File, Mode => In_File,
       Name => OS_File_Name.To_String (Run_Args.Data_File_Name));
 
-
-   Effective_NS_Dim := 0;
-   Effective_WE_Dim := 0;
-   My_Forest := (others => ( 
-                  others => (Height => 0, Is_Visible => True)));
-
    while not End_Of_File (Data_File) loop
       --  Effective tree NS positions range from 1 to Data'Length
       declare
          Data : constant String := Get_Line (Data_File);
       begin
          if Data'Length > 1 then 
-            Effective_NS_Dim := @ + 1;
-            Effective_WE_Dim := Data'Length;
-            Load_Grid_Line (Data, My_Forest, Effective_NS_Dim);
+            NS_Dim := @ + 1;
+            WE_Dim := Natural'Max (WE_Dim, Data'Length);
+            Load_Grid_Line (Data, My_Forest, NS_Dimension (NS_Dim));
          end if;
       end;
    end loop;
    Close (Data_File);
 
-   Effective_NS_Dim := @ + 1; --  Border of grid goes up to (Nb of lines + 1), starting at 0; with Height = 0
-   Effective_WE_Dim := @ + 1; --  Border of grid goes up to (Data'Length + 1), starting at 0; with Height = 0
+   Effective_NS_Dim := NS_Dimension (NS_Dim); --  Border of grid goes up to (Nb of lines)
+   Effective_WE_Dim := WE_Dimension (WE_Dim); --  Border of grid goes up to (Data'Length)
 
    if Run_Args.Trace then -- Trace
       Put ("Forest dimensions (NS =");
-      Put (Natural (Effective_NS_Dim - 1), 4);
+      Put (Natural (Effective_NS_Dim), 4);
       Put (")(WE =");
-      Put (Natural (Effective_WE_Dim - 1), 4);
+      Put (Natural (Effective_WE_Dim), 4);
       Put_Line (")");
-   end if;
-
-   New_Line;
-
-   if Run_Args.Trace then -- Trace
+      New_Line;
       Show_Visible_Trees (My_Forest);
    end if;
 
-
-
    --  Part 1
    --  ======   
-   if Run_Args.Trace then -- Trace
-      Put_Line ("--  Part 1  --");
-      Put_Line ("--------------");
-   end if;
    Set_Trees_to_Invisible (My_Forest);
    Check_Visible_Trees (My_Forest);
 
    if Run_Args.Trace then -- Trace
+      Put_Line ("--  Part 1  --");
+      Put_Line ("--------------");
       Show_Visible_Trees (My_Forest);
    end if;
 
-
    Total_Visible_Trees := Count_Visible_Trees (Forest => My_Forest);
-
-   New_Line;
 
    --  Print result of Part 1
    --  ======================

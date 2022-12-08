@@ -9,9 +9,6 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Command_Line;
-
-
 package Tree_Grids is
 
    subtype Height_range is natural range 0 .. 9;
@@ -20,7 +17,7 @@ package Tree_Grids is
       Is_Visible : Boolean := False;
    end record;
 
-   subtype Grid_Dimension is Natural range 0 .. 100;
+   subtype Grid_Dimension is Natural range 1 .. 100;
 
    type NS_Dimension is new Grid_Dimension;
    type WE_Dimension is new Grid_Dimension;
@@ -34,8 +31,8 @@ package Tree_Grids is
 
    type Point_of_Vue is (North, South, East, West);
 
-   Effective_NS_Dim : NS_Dimension := 0;
-   Effective_WE_Dim : WE_Dimension := 0;
+   Effective_NS_Dim : NS_Dimension := NS_Dimension'First;
+   Effective_WE_Dim : WE_Dimension := WE_Dimension'First;
 
 
    procedure Set_Trees_to_Invisible (Forest : in out Grid);
