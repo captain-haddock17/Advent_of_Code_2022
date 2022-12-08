@@ -2,7 +2,7 @@
 
 ### Design
 
-`puzzle_08` (376 SLoC) :: Ada centric solution
+`puzzle_08` (376 SLoC) :: Ada *geek* solution
 
 * Using *In Strong Typing We Trust*
 
