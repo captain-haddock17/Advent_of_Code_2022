@@ -13,10 +13,11 @@ package Tree_Grids is
 
    subtype Height_range is natural range 0 .. 9;
    type Tree is record
-      Height : Height_range;
+      Height     : Height_range;
       Is_Visible : Boolean := False;
    end record;
 
+   subtype Grid_Distance is Natural;
    subtype Grid_Dimension is Natural range 1 .. 100;
 
    type NS_Dimension is new Grid_Dimension;
@@ -31,17 +32,18 @@ package Tree_Grids is
 
    type Point_of_Vue is (North, South, East, West);
 
+   --  Global variables
+   --  FixMe: Could be implemented with get()/set() function/procedure
    Effective_NS_Dim : NS_Dimension := NS_Dimension'First;
    Effective_WE_Dim : WE_Dimension := WE_Dimension'First;
 
-
    procedure Set_Trees_to_Invisible (Forest : in out Grid);
-
-   function Is_Visible (Forest : in out Grid; From : Point_of_Vue; Tree_Position : Position) return Boolean;
 
    procedure Check_Visible_Trees (Forest : in out Grid);
 
    function Count_Visible_Trees (Forest : Grid) return Natural;
+
+   function Find_Best_Scenic_View (Forest : Grid) return Grid_Distance;
 
 private
 

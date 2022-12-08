@@ -33,6 +33,9 @@ procedure Puzzle_08 is
    --  Part 1
    Total_Visible_Trees : Natural := 0;
 
+   --  Part 2
+   Highest_Scenic_Score : Grid_Distance := 0;
+
 -- -----
 --  Main
 -- -----
@@ -84,7 +87,11 @@ begin
       Show_Visible_Trees (My_Forest);
    end if;
 
-   Total_Visible_Trees := Count_Visible_Trees (Forest => My_Forest);
+   Total_Visible_Trees := Count_Visible_Trees (My_Forest);
+
+   --  Part 2
+   --  ======   
+   Highest_Scenic_Score := Find_Best_Scenic_View (My_Forest);
 
    --  Print result of Part 1
    --  ======================
@@ -97,6 +104,21 @@ begin
       Put_Line ("   Correct answer with test data ;-)");
    end if;
    if Total_Visible_Trees = 1776
+ then
+      Put_Line ("   Correct answer with input data ;-)");
+   end if;
+
+   --  Print result of Part 2
+   --  ======================
+   New_Line;
+   Put ("Highest_Scenic_Score (Part 2) = ");
+   Put_Line (Highest_Scenic_Score'Image);
+
+   --  Verify if result is as expected
+   if Highest_Scenic_Score = 8 then
+      Put_Line ("   Correct answer with test data ;-)");
+   end if;
+   if Highest_Scenic_Score = 234_416
  then
       Put_Line ("   Correct answer with input data ;-)");
    end if;

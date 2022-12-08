@@ -13,7 +13,10 @@ with Tree_Grids; use Tree_Grids;
 
 package Tree_Grids_IO is
 
-   procedure Load_Grid_Line (Data : String; My_Forest : in out Grid; NS : NS_Dimension);
+   procedure Load_Grid_Line (
+         Data : String;
+         My_Forest : in out Grid;
+         NS : NS_Dimension);
 
    procedure Show_Visible_Trees (Forest : Grid);
 

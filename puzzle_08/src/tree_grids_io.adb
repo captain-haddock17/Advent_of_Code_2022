@@ -16,7 +16,10 @@ package body Tree_Grids_IO is
    --  --------------
    --  Load_Grid_Line
    --  --------------
-   procedure Load_Grid_Line (Data : String; My_Forest : in out Grid; NS : NS_Dimension)
+   procedure Load_Grid_Line (
+         Data : String;
+         My_Forest : in out Grid;
+         NS : NS_Dimension)
    is
    begin
       --  Effective tree positions range from 1 to  Data'Length

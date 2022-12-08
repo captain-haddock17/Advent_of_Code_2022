@@ -2,17 +2,9 @@
 
 ### Design
 
-`puzzle_08` (299 SLoC) :: Ada centric solution
+`puzzle_08` (376 SLoC) :: Ada centric solution
 
-* Implementing a generic *Round Robin* buffer with a `Protected type`
-* Implementing generic of generic
-* Using `Ada.Strings.Maps` for the fun (beauty) of it
-```ada
-function Is_In (Element : in Character;
-                Set     : in Character_Set)
-```
-* Using `Ada.Text_IO.Text_Streams` to handle the input (data stream as in *real* life)
-* TODO: factoring out some code into a unique procedure call `Analyse_Buffer`
+* Using *In Strong Typing We Trust*
 
 ### Build
 
