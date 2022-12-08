@@ -3,3 +3,14 @@
 
 # Ada Library Information
 *.ali
+obj
+bin
+.DS_Store
+alire
+config
+
+*/obj/
+*/bin/
+*/alire/
+*/config/
+
