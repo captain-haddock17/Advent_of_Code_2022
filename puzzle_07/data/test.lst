@@ -1,0 +1,16 @@
+test
+[        192]  test/a/
+[         96]  test/a/e/
+[        584]  test/a/e/i
+[      29116]  test/a/f
+[       2557]  test/a/g
+[      62596]  test/a/h.lst
+[   14848514]  test/b.txt
+[    8504156]  test/c.dat
+[        192]  test/d/
+[    5626152]  test/d/d.ext
+[    8033020]  test/d/d.log
+[    4060174]  test/d/j
+[    7214296]  test/d/k
+
+3 directories, 10 files
