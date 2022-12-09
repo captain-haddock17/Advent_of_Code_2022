@@ -16,6 +16,7 @@ with Command_Line; use Command_Line;
 with Ada.IO_Exceptions;
 
 with Ada.Text_IO; use Ada.Text_IO;
+With Ada.Characters.Latin_1; use Ada.Characters;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 procedure Puzzle_08 is
@@ -35,6 +36,37 @@ procedure Puzzle_08 is
 
    --  Part 2
    Highest_Scenic_Score : Grid_Distance := 0;
+
+   type Trace_CrossPoint is (Show_Forest, Show_Visible_Trees);
+   procedure Trace_Advice (CrossPoint : Trace_CrossPoint) is
+   begin
+      if Run_Args.Trace then -- Trace
+         case CrossPoint is
+            when Show_Forest =>
+               New_Line;
+               Put_Line ("Forest dimensions:");
+               Put (Latin_1.HT);
+               Put ("N-S =");
+               Put (Natural (Effective_NS_Dim), 4);
+               New_Line;
+               Put (Latin_1.HT);
+               Put ("E-W =");
+               Put (Natural (Effective_WE_Dim), 4);
+               New_Line;
+               New_Line;
+               Put_Line ("--------------------------");
+               Put_Line ("--      Show Forest     --");
+               Put_Line ("--------------------------");
+               Show_Visible_Trees (My_Forest);
+            when Show_Visible_Trees =>
+               New_Line;
+               Put_Line ("--------------------------");
+               Put_Line ("--  Show_Visible_Trees  --");
+               Put_Line ("--------------------------");
+               Show_Visible_Trees (My_Forest);
+         end case;
+      end if;
+   end Trace_Advice;
 
 -- -----
 --  Main
@@ -66,26 +98,14 @@ begin
    Effective_NS_Dim := NS_Dimension (NS_Dim); --  Border of grid goes up to (Nb of lines)
    Effective_WE_Dim := WE_Dimension (WE_Dim); --  Border of grid goes up to (Data'Length)
 
-   if Run_Args.Trace then -- Trace
-      Put ("Forest dimensions (NS =");
-      Put (Natural (Effective_NS_Dim), 4);
-      Put (")(WE =");
-      Put (Natural (Effective_WE_Dim), 4);
-      Put_Line (")");
-      New_Line;
-      Show_Visible_Trees (My_Forest);
-   end if;
+   Trace_Advice (Show_Forest);
 
    --  Part 1
    --  ======   
    Set_Trees_to_Invisible (My_Forest);
    Check_Visible_Trees (My_Forest);
 
-   if Run_Args.Trace then -- Trace
-      Put_Line ("--  Part 1  --");
-      Put_Line ("--------------");
-      Show_Visible_Trees (My_Forest);
-   end if;
+   Trace_Advice (Show_Visible_Trees);
 
    Total_Visible_Trees := Count_Visible_Trees (My_Forest);
 
