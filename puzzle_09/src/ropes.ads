@@ -21,7 +21,7 @@ package Ropes is
       ID : Knot_ID;
       Pos : Grid_Position;
    end record;
-   type Knot_array is array (Knot_ID'Range) of Knot_record;
+   type Knots_array is array (Knot_ID'Range) of Knot_record;
 
 private
 

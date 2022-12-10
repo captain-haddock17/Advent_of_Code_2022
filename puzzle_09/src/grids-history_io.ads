@@ -13,7 +13,7 @@ with Grids.History;  use Grids.History;
 
 package Grids.History_IO is
 
-   procedure Tail_History_Write (Histroy : Tail_History);
+   procedure Tail_History_Write (History : Tail_History);
 
 private
 

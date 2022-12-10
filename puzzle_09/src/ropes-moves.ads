@@ -52,10 +52,17 @@ package Ropes.Moves is
 
    function New_Knot_Position (
          This_Knot : Knot_record;
-         Tail_Pos, Head_From : Grid_Position;  
+         Comming_From : Knot_record;
          Move : Displacement;
          History : in out Tail_History)
-         return Grid_Position;
+         return Knot_record;
+
+   function New_Rope_Position (
+         This_Rope : Knots_array;
+         Previous  : Knots_array;
+         Move      : Displacement;
+         History : in out Tail_History)
+         return Knots_array;
 
 private
 

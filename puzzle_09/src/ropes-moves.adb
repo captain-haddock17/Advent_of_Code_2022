@@ -64,89 +64,6 @@ package body Ropes.Moves is
    end New_Head_Position;
 
    --  -----------------
-   --  New_Knot_Position
-   --  -----------------
-   function New_Knot_Position (
-         This_Knot : Knot_record;
-         Tail_Pos, Head_From : Grid_Position;  
-         Move : Displacement;
-         History : in out Tail_History)
-         return Grid_Position
-   is
-      New_Tail : Grid_Position;
-      Head_To : Grid_Position;
-      Delta_X : X_Dimension;
-      Delta_Y : Y_Dimension;
-   begin
-      Head_To := New_Head_Position (Head_From, Move);
-      Delta_X := Tail_Pos.X - Head_From.X;
-      Delta_Y := Tail_Pos.Y - Head_From.Y;
-
-      New_Tail := Tail_Pos;
-      case Move.Dir is
-         when Up =>
-            if (Move.Dist = 1 and then Delta_Y >= 0) 
-            or (Move.Dist = 2 and then Delta_Y = 1)
-            then
-               null;
-            else  -- Delta_Y in -1
-               New_Tail.X := Head_To.X;
-               New_Tail.Y := Head_To.Y - 1 ;
-               for D_Y in 1 .. Y_Dimension (Move.Dist - 1) - Delta_Y loop
-                  Store_History (
-                     TH => History,
-                     Knot => (This_Knot.ID, (Head_To.X, Head_To.Y - D_Y)));
-               end loop;
-            end if;
-         when Right =>
-            if (Move.Dist = 1 and then Delta_X >= 0)
-            or (Move.Dist = 2 and then Delta_X = 1)
-            then
-               null;
-            else -- Delta_X in -1
-               New_Tail.X := Head_To.X - 1;
-               New_Tail.Y := Head_To.Y;
-               for D_X in 1 .. X_Dimension (Move.Dist - 1) - Delta_X loop
-                  Store_History (
-                     TH => History,
-                     Knot => (This_Knot.ID, (Head_To.X - D_X, Head_To.Y)));
-               end loop;
-            end if;
-         when Down =>
-            if (Move.Dist = 1 and then Delta_Y <= 0)
-            or (Move.Dist = 2 and then Delta_Y = -1)
-            then
-               null;
-            else -- Delta_Y in 1
-               New_Tail.Y := Head_To.Y + 1;
-               New_Tail.X := Head_To.X;
-              for D_Y in 1 .. Y_Dimension (Move.Dist - 1) + Delta_Y loop
-                  Store_History (
-                     TH => History, 
-                     Knot => (This_Knot.ID, (Head_To.X, Head_To.Y + D_Y)));
-               end loop;
-            end if;
-         when Left =>
-            if (Move.Dist = 1 and then Delta_X <= 0)
-            or (Move.Dist = 2 and then Delta_X = -1)
-            then
-               null;
-            else -- Delta_X in  1
-               New_Tail.X := Head_To.X + 1;
-               New_Tail.Y := Head_To.Y;
-               for D_X in 1 .. X_Dimension (Move.Dist - 1) + Delta_X loop
-                  Store_History (
-                     TH => History,
-                     Knot => (This_Knot.ID, (Head_To.X + D_X, Head_To.Y)));
-               end loop;
-            end if;
-      end case;
-
-      return New_Tail;
-
-   end New_Knot_Position;
-
-   --  -----------------
    --  New_Tail_Position
    --  -----------------
    function New_Tail_Position (
@@ -225,7 +142,110 @@ package body Ropes.Moves is
       end case;
 
       return New_Tail;
-
    end New_Tail_Position;
+
+   --  -----------------
+   --  New_Knot_Position
+   --  -----------------
+   function New_Knot_Position (
+         This_Knot : Knot_record;
+         Comming_From : Knot_record;
+         Move : Displacement;
+         History : in out Tail_History)
+         return Knot_record
+   is
+      New_Tail : Grid_Position;
+      Head_To : Grid_Position;
+      Delta_X : X_Dimension;
+      Delta_Y : Y_Dimension;
+   begin
+      Head_To := New_Head_Position (Comming_From.Pos, Move);
+      Delta_X := This_Knot.Pos.X - Comming_From.Pos.X;
+      Delta_Y := This_Knot.Pos.Y - Comming_From.Pos.Y;
+
+      New_Tail := This_Knot.Pos;
+      case Move.Dir is
+         when Up =>
+            if (Move.Dist = 1 and then Delta_Y >= 0) 
+            or (Move.Dist = 2 and then Delta_Y = 1)
+            then
+               null;
+            else  -- Delta_Y in -1
+               New_Tail.X := Head_To.X;
+               New_Tail.Y := Head_To.Y - 1 ;
+               for D_Y in 1 .. Y_Dimension (Move.Dist - 1) - Delta_Y loop
+                  Store_History (
+                     TH => History,
+                     Knot => (This_Knot.ID, (Head_To.X, Head_To.Y - D_Y)));
+               end loop;
+            end if;
+         when Right =>
+            if (Move.Dist = 1 and then Delta_X >= 0)
+            or (Move.Dist = 2 and then Delta_X = 1)
+            then
+               null;
+            else -- Delta_X in -1
+               New_Tail.X := Head_To.X - 1;
+               New_Tail.Y := Head_To.Y;
+               for D_X in 1 .. X_Dimension (Move.Dist - 1) - Delta_X loop
+                  Store_History (
+                     TH => History,
+                     Knot => (This_Knot.ID, (Head_To.X - D_X, Head_To.Y)));
+               end loop;
+            end if;
+         when Down =>
+            if (Move.Dist = 1 and then Delta_Y <= 0)
+            or (Move.Dist = 2 and then Delta_Y = -1)
+            then
+               null;
+            else -- Delta_Y in 1
+               New_Tail.Y := Head_To.Y + 1;
+               New_Tail.X := Head_To.X;
+              for D_Y in 1 .. Y_Dimension (Move.Dist - 1) + Delta_Y loop
+                  Store_History (
+                     TH => History, 
+                     Knot => (This_Knot.ID, (Head_To.X, Head_To.Y + D_Y)));
+               end loop;
+            end if;
+         when Left =>
+            if (Move.Dist = 1 and then Delta_X <= 0)
+            or (Move.Dist = 2 and then Delta_X = -1)
+            then
+               null;
+            else -- Delta_X in  1
+               New_Tail.X := Head_To.X + 1;
+               New_Tail.Y := Head_To.Y;
+               for D_X in 1 .. X_Dimension (Move.Dist - 1) + Delta_X loop
+                  Store_History (
+                     TH => History,
+                     Knot => (This_Knot.ID, (Head_To.X + D_X, Head_To.Y)));
+               end loop;
+            end if;
+      end case;
+
+      return (This_Knot.ID, New_Tail);
+   end New_Knot_Position;
+
+   --  -----------------
+   --  New_Rope_Position
+   --  -----------------
+   function New_Rope_Position (
+            This_Rope : Knots_array;
+            Previous  : Knots_array;
+            Move      : Displacement;
+            History : in out Tail_History)
+            return Knots_array
+   is
+      Actual_Rope_Position : Knots_array := This_Rope;
+   begin
+      for Knot in Knot_ID'Succ (Head_Knot) .. Knot_ID'Last loop
+      Actual_Rope_Position (Knot) := New_Knot_Position (
+               This_Knot    => This_Rope (Knot),
+               Comming_From => Previous (Knot_ID'Pred (Knot)),
+               Move         => Move,
+               History      => History);
+      end loop;
+      return Actual_Rope_Position;
+   end New_Rope_Position;
 
 end Ropes.Moves;

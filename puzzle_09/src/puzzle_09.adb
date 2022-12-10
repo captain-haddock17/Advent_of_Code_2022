@@ -36,14 +36,18 @@ procedure Puzzle_09 is
 
    --  Data
    use Tail_History_Sets;
-   Rope, Previous_Rope : Knot_array := 
+
+   Reset_Rope : constant Knots_array :=
       (for K_ID in Knot_ID => (ID => K_ID, Pos => Start_Pos));
+   Rope, Previous_Rope : Knots_array := Reset_Rope;
+
+   TH : Tail_History := Empty_Set;
 
    --  Part 1
-   TH : Tail_History := Empty_Set;
-   Total_Tail_Positions : Natural := 0;
+   Total_Tail1_Positions : Natural := 0;
 
    --  Part 2
+   Total_Tail9_Positions : Natural := 0;
 
    --  --------------
    --  Trace «Aspect»
@@ -83,6 +87,8 @@ begin
    Set_Input (Data_File);  -- will be used by 'Sections.Write_Section()'
    Data_Stream := Text_Streams.Stream (Data_File);
 
+   --  Part 1
+   --  ======
    Trace_Advice (Show_Positions); -- Trace
 
    Store_History (Th, Rope);
@@ -96,8 +102,37 @@ begin
       Rope (Head_Knot).Pos := New_Head_Position (Rope (Head_Knot).Pos, Some_Displacement);
 
       Rope (Tail_Knot).Pos := New_Tail_Position (
-            Tail_Pos  => Rope (Tail_Knot).Pos,
-            Head_From => Previous_Rope (Head_Knot).Pos,
+         Tail_Pos   => Rope (Tail_Knot).Pos,
+         Head_From  => Previous_Rope (Head_Knot).Pos,
+         Move       => Some_Displacement,
+         History    => TH);
+
+      Trace_Advice (Show_Positions); -- Trace
+   end loop;
+
+   Trace_Advice (Show_Grid); -- Trace
+   Total_Tail1_Positions := Natural (Length (TH));
+
+   --  Part 2
+   --  ======
+   Reset (Data_File);
+   Rope := Reset_Rope;
+   Previous_Rope := Reset_Rope;
+   Clear (TH);  -- = Empty_Set
+
+   Store_History (Th, Rope);
+
+   while not End_Of_File (Data_File) loop
+      Displacement'Read (Data_Stream, Some_Displacement);
+      Trace_Advice (Show_Input);
+
+      Previous_Rope (Head_Knot).Pos := Rope (Head_Knot).Pos;
+
+      Rope (Head_Knot).Pos := New_Head_Position (Rope (Head_Knot).Pos, Some_Displacement);
+
+      Rope := New_Rope_Position (
+            This_Rope => Rope,
+            Previous  => Previous_Rope,
             Move      => Some_Displacement,
             History   => TH);
 
@@ -105,25 +140,20 @@ begin
    end loop;
    Close (Data_File);
 
-   --  Part 1
-   --  ======   
    Trace_Advice (Show_Grid); -- Trace
-
-   Total_Tail_Positions := Natural (Length (TH));
-   --  Part 2
-   --  ======   
+   Total_Tail9_Positions := Natural (Length (TH));
 
    --  Print result of Part 1
    --  ======================
    New_Line;
-   Put ("Total_Tail_Positions (Part 1) = ");
-   Put_Line (Total_Tail_Positions'Image);
+   Put ("Total_Tail1_Positions (Part 1) = ");
+   Put_Line (Total_Tail1_Positions'Image);
 
    --  Verify if result is as expected
-   if Total_Tail_Positions = 13 then
+   if Total_Tail1_Positions = 13 then
       Put_Line ("   Correct answer with test data ;-)");
    end if;
-   if Total_Tail_Positions = 5735
+   if Total_Tail1_Positions = 5735
  then
       Put_Line ("   Correct answer with input data ;-)");
    end if;
@@ -131,14 +161,14 @@ begin
    --  Print result of Part 2
    --  ======================
    New_Line;
-   Put ("Total_Tail_Positions (Part 2) = ");
-   Put_Line (Total_Tail_Positions'Image);
+   Put ("Total_Tail9_Positions (Part 2) = ");
+   Put_Line (Total_Tail9_Positions'Image);
 
    --  Verify if result is as expected
-   if Total_Tail_Positions = 8 then
+   if Total_Tail9_Positions = 36 then
       Put_Line ("   Correct answer with test data ;-)");
    end if;
-   if Total_Tail_Positions = 1
+   if Total_Tail9_Positions = 1
    then
       Put_Line ("   Correct answer with input data ;-)");
    end if;

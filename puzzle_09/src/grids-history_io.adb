@@ -16,7 +16,7 @@ package body Grids.History_IO is
    --  ------------------
    --  Tail_History_Write
    --  ------------------
-   procedure Tail_History_Write (Histroy : Tail_History)
+   procedure Tail_History_Write (History : Tail_History)
    is
       subtype X_Dim is X_Dimension 
          range X_Dimension (Show_Grid_range'First) .. X_Dimension (Show_Grid_range'Last);
@@ -29,7 +29,7 @@ package body Grids.History_IO is
       Pos_in_Grid : Grid_Position;
 
    begin
-      for E of Histroy loop
+      for E of History loop
          Grid (E.X, E.Y) := '#';
       end loop;
 

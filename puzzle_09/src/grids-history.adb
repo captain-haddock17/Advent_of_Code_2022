@@ -9,7 +9,7 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Ada.Text_IO; use Ada.Text_IO;
+--  with Ada.Text_IO; use Ada.Text_IO;
 
 package body Grids.History is
 
@@ -38,7 +38,7 @@ package body Grids.History is
    --  -------------
    --  Store_History
    --  -------------
-   procedure Store_History (TH : in out Tail_History; Rope : Knot_array)
+   procedure Store_History (TH : in out Tail_History; Rope : Knots_array)
    is
    begin
       for Knot in Knot_ID loop
