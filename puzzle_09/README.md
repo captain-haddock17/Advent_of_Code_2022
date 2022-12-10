@@ -5,6 +5,13 @@
 `puzzle_09` (376 SLoC) :: Ada *geek* solution
 
 * Using *In Strong Typing We Trust*
+   *  `X` and `Y` coordinates are different *types* so you can NOT confuse/invert them!
+* Using `Ada.Containers.Hashed_Sets` to record displacements of the *Tail's rope*
+* Tracing is implemented as a kind of [Aspect programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming) design
+
+Limitations:
+* In trace mode, `Grid_range` is limited to 0 .. 5
+
 
 ### Build
 

@@ -34,6 +34,7 @@ package body Moves is
    --  ------------
    --  Write_Record
    --  ------------
+   pragma Warnings (Off, "formal parameter ""Stream"" is not referenced");
    procedure Write_Record (   -- for the purpose of tracing
       Stream : not null access Root_Stream_Type'Class;
       Item   : Displacement)
@@ -42,7 +43,8 @@ package body Moves is
       Put (Item.Dir'Image);
       Put (Item.Dist'Image);
    end Write_Record;
-
+   pragma Warnings (On, "formal parameter ""Stream"" is not referenced");
+   
    --  ------------------
    --  Displacement_Write
    --  ------------------
@@ -101,7 +103,7 @@ package body Moves is
             else  -- Delta_Y in -1
                New_Tail.X := Head_To.X;
                New_Tail.Y := Head_To.Y - 1 ;
-               for D_Y in 1 .. (Move.Dist - 1) - Delta_Y loop
+               for D_Y in 1 .. Y_Dimension (Move.Dist - 1) - Delta_Y loop
                   Store_History (History, (Head_To.X, Head_To.Y - D_Y));
                end loop;
             end if;
@@ -113,7 +115,7 @@ package body Moves is
             else -- Delta_X in -1
                New_Tail.X := Head_To.X - 1;
                New_Tail.Y := Head_To.Y;
-               for D_X in 1 .. (Move.Dist - 1) - Delta_X loop
+               for D_X in 1 .. X_Dimension (Move.Dist - 1) - Delta_X loop
                   Store_History (History, (Head_To.X - D_X, Head_To.Y));
                end loop;
             end if;
@@ -125,7 +127,7 @@ package body Moves is
             else -- Delta_Y in 1
                New_Tail.Y := Head_To.Y + 1;
                New_Tail.X := Head_To.X;
-              for D_Y in 1 .. (Move.Dist - 1) + Delta_Y loop
+              for D_Y in 1 .. Y_Dimension (Move.Dist - 1) + Delta_Y loop
                   Store_History (History, (Head_To.X, Head_To.Y + D_Y));
                end loop;
             end if;
@@ -137,7 +139,7 @@ package body Moves is
             else -- Delta_X in  1
                New_Tail.X := Head_To.X + 1;
                New_Tail.Y := Head_To.Y;
-               for D_X in 1 .. (Move.Dist - 1) + Delta_X loop
+               for D_X in 1 .. X_Dimension (Move.Dist - 1) + Delta_X loop
                   Store_History (History, (Head_To.X + D_X, Head_To.Y));
                end loop;
             end if;

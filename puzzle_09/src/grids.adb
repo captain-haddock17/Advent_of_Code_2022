@@ -59,16 +59,20 @@ package body Grids is
       Put (')');
    end Position_Write;
 
-
    --  ----------
    --  Grid_Write
    --  ----------
    procedure Grid_Write (Histroy : Tail_History)
    is
-      subtype Grid_range is Grid_Dimension range 0 .. 5;
-      type Grid_array is array (Grid_range, Grid_range) of Character;
-      Grid_Pos : Grid_range := 0;
+      subtype X_Dim is X_Dimension 
+         range X_Dimension (Show_Grid_range'First) .. X_Dimension (Show_Grid_range'Last);
+      subtype Y_Dim is Y_Dimension
+         range Y_Dimension (Show_Grid_range'First) .. Y_Dimension (Show_Grid_range'Last);
+
+      type Grid_array is array (X_Dim, Y_Dim) of Character;
       Grid : Grid_array := (others => (others => ' '));
+      Start_in_Grid : constant Grid_Position := (0,0);
+      Pos_in_Grid : Grid_Position;
 
    begin
       for E of Histroy loop
@@ -76,15 +80,14 @@ package body Grids is
       end loop;
 
       New_Line;
-      for X in Grid_range loop
+      for X in Show_Grid_range loop
          put ('_');
       end loop;
 
-      for Y in reverse Grid_range loop
-         for X in Grid_range loop
-            if X = 0
-            and then Y = 0
-            then 
+      for Y in reverse Y_Dim'Range loop
+         for X in X_Dim'Range loop
+            Pos_in_Grid := (X, Y);
+            if Pos_in_Grid = Start_in_Grid then
                put ('S');
             else
                put (Grid (X, Y));
@@ -93,11 +96,10 @@ package body Grids is
          New_Line;
       end loop;
 
-      for X in Grid_range loop
+      for X in Show_Grid_range loop
          put ('_');
       end loop;
       New_Line;
    end Grid_Write;
-
 
 end Grids;

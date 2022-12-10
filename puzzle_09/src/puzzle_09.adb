@@ -18,7 +18,6 @@ with Ada.IO_Exceptions;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Text_IO.Text_Streams;
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 With Ada.Characters.Latin_1; use Ada.Characters;
 
 
@@ -118,7 +117,7 @@ begin
    if Total_Tail_Positions = 13 then
       Put_Line ("   Correct answer with test data ;-)");
    end if;
-   if Total_Tail_Positions = 1776
+   if Total_Tail_Positions = 5735
  then
       Put_Line ("   Correct answer with input data ;-)");
    end if;
@@ -133,11 +132,7 @@ begin
    if Total_Tail_Positions = 8 then
       Put_Line ("   Correct answer with test data ;-)");
    end if;
-   if Total_Tail_Positions < 4931
-   then
-      Put_Line ("   Correct answer with input data ;-)");
-   end if;
-   if Total_Tail_Positions > 3865
+   if Total_Tail_Positions = 1
    then
       Put_Line ("   Correct answer with input data ;-)");
    end if;

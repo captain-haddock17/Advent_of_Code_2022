@@ -19,9 +19,10 @@ package Grids is
    Max_Grid_Dimension : constant Grid_Dimension := 2 ** 15;
    --  = 2 ** (Hash_Type'Size / 2 - 1)
    --  => 32.000 items max
+   subtype Show_Grid_range is Grid_Dimension range -12 .. 15;
 
-   subtype X_Dimension is Grid_Dimension range -Max_Grid_Dimension .. Max_Grid_Dimension;
-   subtype Y_Dimension is Grid_Dimension range -Max_Grid_Dimension .. Max_Grid_Dimension;
+   type X_Dimension is new Grid_Dimension range -Max_Grid_Dimension .. Max_Grid_Dimension;
+   type Y_Dimension is new Grid_Dimension range -Max_Grid_Dimension .. Max_Grid_Dimension;
 
    type Grid_Position is record 
       X : X_Dimension;
