@@ -29,7 +29,7 @@ package Grids is
 
    --  Global variables
    --  FixMe: Could be implemented with get()/set() function/procedure
-   Actual_Pos : Grid_Position := (0, 0);
+   Start_Pos : Grid_Position := (0, 0);
 
 private
 

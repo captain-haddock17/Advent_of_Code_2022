@@ -9,6 +9,8 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
+with Ropes; use Ropes;
+
 with Ada.Containers;
 use Ada.Containers;
 with Ada.Containers.Hashed_Sets;
@@ -26,7 +28,9 @@ package Grids.History is
       "="  => "=");
    subtype Tail_History is Tail_History_Sets.Set;
 
-   procedure Store_History (TH : in out Tail_History; Pos : Grid_Position);
+   procedure Store_History (TH : in out Tail_History; Rope : Knot_array);
+
+   procedure Store_History (TH : in out Tail_History; Knot : Knot_record);
 
 private
 

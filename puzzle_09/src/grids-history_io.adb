@@ -9,8 +9,6 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Grids; use Grids;
-
 with Ada.Text_IO; use Ada.Text_IO;
 
 package body Grids.History_IO is

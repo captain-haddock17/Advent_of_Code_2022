@@ -93,9 +93,9 @@ package body Ropes.Moves is
                New_Tail.X := Head_To.X;
                New_Tail.Y := Head_To.Y - 1 ;
                for D_Y in 1 .. Y_Dimension (Move.Dist - 1) - Delta_Y loop
-                  if This_Knot.ID = Tail_Knot then
-                     Store_History (History, (Head_To.X, Head_To.Y - D_Y));
-                  end if;
+                  Store_History (
+                     TH => History,
+                     Knot => (This_Knot.ID, (Head_To.X, Head_To.Y - D_Y)));
                end loop;
             end if;
          when Right =>
@@ -107,9 +107,9 @@ package body Ropes.Moves is
                New_Tail.X := Head_To.X - 1;
                New_Tail.Y := Head_To.Y;
                for D_X in 1 .. X_Dimension (Move.Dist - 1) - Delta_X loop
-                  if This_Knot.ID = Tail_Knot then
-                     Store_History (History, (Head_To.X - D_X, Head_To.Y));
-                  end if;
+                  Store_History (
+                     TH => History,
+                     Knot => (This_Knot.ID, (Head_To.X - D_X, Head_To.Y)));
                end loop;
             end if;
          when Down =>
@@ -121,9 +121,9 @@ package body Ropes.Moves is
                New_Tail.Y := Head_To.Y + 1;
                New_Tail.X := Head_To.X;
               for D_Y in 1 .. Y_Dimension (Move.Dist - 1) + Delta_Y loop
-                  if This_Knot.ID = Tail_Knot then
-                     Store_History (History, (Head_To.X, Head_To.Y + D_Y));
-                  end if;
+                  Store_History (
+                     TH => History, 
+                     Knot => (This_Knot.ID, (Head_To.X, Head_To.Y + D_Y)));
                end loop;
             end if;
          when Left =>
@@ -135,9 +135,9 @@ package body Ropes.Moves is
                New_Tail.X := Head_To.X + 1;
                New_Tail.Y := Head_To.Y;
                for D_X in 1 .. X_Dimension (Move.Dist - 1) + Delta_X loop
-                  if This_Knot.ID = Tail_Knot then
-                     Store_History (History, (Head_To.X + D_X, Head_To.Y));
-                  end if;
+                  Store_History (
+                     TH => History,
+                     Knot => (This_Knot.ID, (Head_To.X + D_X, Head_To.Y)));
                end loop;
             end if;
       end case;
@@ -175,7 +175,9 @@ package body Ropes.Moves is
                New_Tail.X := Head_To.X;
                New_Tail.Y := Head_To.Y - 1 ;
                for D_Y in 1 .. Y_Dimension (Move.Dist - 1) - Delta_Y loop
-                  Store_History (History, (Head_To.X, Head_To.Y - D_Y));
+                  Store_History (
+                     TH => History, 
+                     Knot => (Tail_Knot, (Head_To.X, Head_To.Y - D_Y)));
                end loop;
             end if;
          when Right =>
@@ -187,7 +189,9 @@ package body Ropes.Moves is
                New_Tail.X := Head_To.X - 1;
                New_Tail.Y := Head_To.Y;
                for D_X in 1 .. X_Dimension (Move.Dist - 1) - Delta_X loop
-                  Store_History (History, (Head_To.X - D_X, Head_To.Y));
+                  Store_History (
+                     TH => History, 
+                     Knot => (Tail_Knot, (Head_To.X - D_X, Head_To.Y)));
                end loop;
             end if;
          when Down =>
@@ -199,7 +203,9 @@ package body Ropes.Moves is
                New_Tail.Y := Head_To.Y + 1;
                New_Tail.X := Head_To.X;
               for D_Y in 1 .. Y_Dimension (Move.Dist - 1) + Delta_Y loop
-                  Store_History (History, (Head_To.X, Head_To.Y + D_Y));
+                  Store_History (
+                     TH => History, 
+                     Knot => (Tail_Knot, (Head_To.X, Head_To.Y + D_Y)));
                end loop;
             end if;
          when Left =>
@@ -211,7 +217,9 @@ package body Ropes.Moves is
                New_Tail.X := Head_To.X + 1;
                New_Tail.Y := Head_To.Y;
                for D_X in 1 .. X_Dimension (Move.Dist - 1) + Delta_X loop
-                  Store_History (History, (Head_To.X + D_X, Head_To.Y));
+                  Store_History (
+                     TH => History, 
+                     Knot => (Tail_Knot, (Head_To.X + D_X, Head_To.Y)));
                end loop;
             end if;
       end case;

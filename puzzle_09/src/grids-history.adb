@@ -10,8 +10,6 @@ pragma Style_Checks ("M120");
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Integer_Text_IO;
-use Ada.Integer_Text_IO;
 
 package body Grids.History is
 
@@ -40,10 +38,20 @@ package body Grids.History is
    --  -------------
    --  Store_History
    --  -------------
-   procedure Store_History (TH : in out Tail_History; Pos : Grid_Position)
+   procedure Store_History (TH : in out Tail_History; Rope : Knot_array)
    is
    begin
-      TH.Include (Pos);
+      for Knot in Knot_ID loop
+         if Rope (Knot).ID = Tail_Knot then
+            Store_History (TH, Rope (Knot));
+         end if;
+      end loop;
+   end Store_History;
+
+   procedure Store_History (TH : in out Tail_History; Knot : Knot_record)
+   is
+   begin
+         TH.Include (Knot.Pos);
    end Store_History;
 
 end Grids.History;

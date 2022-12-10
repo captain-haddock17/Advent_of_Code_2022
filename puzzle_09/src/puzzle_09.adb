@@ -36,10 +36,10 @@ procedure Puzzle_09 is
 
    --  Data
    use Tail_History_Sets;
-   Head_Position, Previous_Head_Position : Grid_Position := (0,0);
+   Rope, Previous_Rope : Knot_array := 
+      (for K_ID in Knot_ID => (ID => K_ID, Pos => Start_Pos));
 
    --  Part 1
-   Tail_Position : Grid_Position := (0,0);
    TH : Tail_History := Empty_Set;
    Total_Tail_Positions : Natural := 0;
 
@@ -49,7 +49,7 @@ procedure Puzzle_09 is
    --  Trace «Aspect»
    --  --------------
    type Trace_JoinPoint is (Show_Input, Show_Positions, Show_Grid);
-   --  type Trace_PointCuts is array (1..3) of Trace_JoinPoint;
+   Trace_PointCuts : array (Trace_JoinPoint) of Boolean;  -- at disposal for use
    procedure Trace_Advice (CrossPoint : Trace_JoinPoint) is
    begin
       if Run_Args.Trace then -- Trace
@@ -58,8 +58,8 @@ procedure Puzzle_09 is
                Displacement_Write (Some_Displacement);
             when Show_Positions =>
                Put (Latin_1.HT);
-               Grid_Position_Write (Head_Position);
-               Grid_Position_Write (Tail_Position);
+               Grid_Position_Write (Rope (Head_Knot).Pos);
+               Grid_Position_Write (Rope (Tail_Knot).Pos);
                New_Line;
             when Show_Grid =>
                Tail_History_Write (TH);
@@ -85,18 +85,19 @@ begin
 
    Trace_Advice (Show_Positions); -- Trace
 
-   Store_History (Th, Tail_Position);
+   Store_History (Th, Rope);
+
    while not End_Of_File (Data_File) loop
       Displacement'Read (Data_Stream, Some_Displacement);
       Trace_Advice (Show_Input);
 
-      Previous_Head_Position := Head_Position;
+      Previous_Rope (Head_Knot).Pos := Rope (Head_Knot).Pos;
 
-      Head_Position := New_Head_Position (Head_Position, Some_Displacement);
+      Rope (Head_Knot).Pos := New_Head_Position (Rope (Head_Knot).Pos, Some_Displacement);
 
-      Tail_Position := New_Tail_Position (
-            Tail_Pos  => Tail_Position,
-            Head_From => Previous_Head_Position,
+      Rope (Tail_Knot).Pos := New_Tail_Position (
+            Tail_Pos  => Rope (Tail_Knot).Pos,
+            Head_From => Previous_Rope (Head_Knot).Pos,
             Move      => Some_Displacement,
             History   => TH);
 
