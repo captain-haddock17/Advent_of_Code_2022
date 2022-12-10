@@ -9,60 +9,16 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
+with Grids; use Grids;
+
 with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Integer_Text_IO;
-use Ada.Integer_Text_IO;
 
-package body Grids is
+package body Grids.History_IO is
 
-   --  -------------
-   --  Hash_Position
-   --  -------------
-   function Hash_Position (Element : Grid_Position) return Ada.Containers.Hash_Type
-   is
-      I, J : Natural;
-      
-   begin
-      I := Natural (Element.X - X_Dimension'First);
-      J := Natural ((Element.Y - Y_Dimension'First)) * Max_Grid_Dimension;
-      return Hash_Type (J + I);
-   end Hash_Position;
-
-   --  -------------
-   --  "="
-   --  -------------
-   function "=" (Left, Right : Grid_Position) return Boolean
-   is
-   begin
-      return Left.X = Right.X and then Left.Y = Right.Y;
-   end "=";
-
-   --  -------------
-   --  Store_History
-   --  -------------
-   procedure Store_History (TH : in out Tail_History; Pos : Grid_Position)
-   is
-   begin
-      TH.Include (Pos);
-   end Store_History;
-
-   --  -------------
-   --  Hash_Position
-   --  -------------
-   procedure Position_Write (Element : Grid_Position)
-   is
-   begin
-      Put ('(');
-      Put (Integer (Element.X),9);
-      Put (',');
-      Put (Integer (Element.Y),9);
-      Put (')');
-   end Position_Write;
-
-   --  ----------
-   --  Grid_Write
-   --  ----------
-   procedure Grid_Write (Histroy : Tail_History)
+   --  ------------------
+   --  Tail_History_Write
+   --  ------------------
+   procedure Tail_History_Write (Histroy : Tail_History)
    is
       subtype X_Dim is X_Dimension 
          range X_Dimension (Show_Grid_range'First) .. X_Dimension (Show_Grid_range'Last);
@@ -100,6 +56,6 @@ package body Grids is
          put ('_');
       end loop;
       New_Line;
-   end Grid_Write;
+   end Tail_History_Write;
 
-end Grids;
+end Grids.History_IO;

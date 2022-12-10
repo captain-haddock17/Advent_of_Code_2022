@@ -10,7 +10,7 @@
 * Tracing is implemented as a kind of [Aspect programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming) design
 
 Limitations:
-* In trace mode, `Grid_range` is limited to 0 .. 5
+* In trace mode, `Grid_range` is limited to -12 .. 15
 
 
 ### Build

@@ -9,12 +9,12 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Grids; use Grids;
+with Grids.History; use Grids.History;
 
 with Ada.Streams;
 use Ada.Streams;
 
-package Moves is
+package Ropes.Moves is
 
    type Direction is (Down, Left, Right, Up);
    for Direction use (
@@ -29,19 +29,15 @@ package Moves is
       Dir  : Direction;
       Dist : Distance;
    end record;
-
-  procedure Read_Record (
+   procedure Read_Record (
       Stream : not null access Root_Stream_Type'Class;
       Item   : out Displacement);
-   for Displacement'Read use Read_Record;
-
    procedure Write_Record (   -- for the purpose of tracing
       Stream : not null access Root_Stream_Type'Class;
       Item   : Displacement);
+   for Displacement'Read use Read_Record;
    for Displacement'Write use Write_Record;
 
-   procedure Displacement_Write (   -- for the purpose of tracing
-      Item   : Displacement);
 
    function New_Head_Position (
          Head_From : Grid_Position;
@@ -54,6 +50,13 @@ package Moves is
          History : in out Tail_History)
          return Grid_Position;
 
+   function New_Knot_Position (
+         This_Knot : Knot_record;
+         Tail_Pos, Head_From : Grid_Position;  
+         Move : Displacement;
+         History : in out Tail_History)
+         return Grid_Position;
+
 private
 
-end Moves;
+end Ropes.Moves;

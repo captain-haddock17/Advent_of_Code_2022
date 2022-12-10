@@ -9,8 +9,13 @@ pragma Style_Checks ("M120");
 --  -------------------------------------------------------------
 pragma Ada_2022;
 
-with Grids;    use Grids;
-with Moves;    use Moves;
+with Ropes;          use Ropes;
+with Ropes.Moves;    use Ropes.Moves;
+with Ropes.Moves_IO; use Ropes.Moves_IO;
+with Grids;             use Grids;
+with Grids_IO;          use Grids_IO;
+with Grids.History;     use Grids.History;
+with Grids.History_IO;  use Grids.History_IO;
 --  with Moves_IO; use Moves_IO;
 
 with Command_Line; use Command_Line;
@@ -53,11 +58,11 @@ procedure Puzzle_09 is
                Displacement_Write (Some_Displacement);
             when Show_Positions =>
                Put (Latin_1.HT);
-               Position_Write (Head_Position);
-               Position_Write (Tail_Position);
+               Grid_Position_Write (Head_Position);
+               Grid_Position_Write (Tail_Position);
                New_Line;
             when Show_Grid =>
-               Grid_Write (TH);
+               Tail_History_Write (TH);
          end case;
       end if;
    end Trace_Advice;

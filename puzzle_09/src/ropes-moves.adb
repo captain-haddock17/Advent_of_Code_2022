@@ -12,9 +12,9 @@ pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Integer_Text_IO;
 use Ada.Integer_Text_IO;
-With Ada.Characters.Latin_1; use Ada.Characters;
+--  with Ada.Characters.Latin_1; use Ada.Characters;
 
-package body Moves is
+package body Ropes.Moves is
 
    --  -----------
    --  Read_Record
@@ -44,18 +44,6 @@ package body Moves is
       Put (Item.Dist'Image);
    end Write_Record;
    pragma Warnings (On, "formal parameter ""Stream"" is not referenced");
-   
-   --  ------------------
-   --  Displacement_Write
-   --  ------------------
-   procedure Displacement_Write (   -- for the purpose of tracing
-      Item   : Displacement)
-   is
-   begin
-      Put (Item.Dir'Image);
-      Put (Latin_1.HT);
-      Put (Item.Dist'Image);
-   end Displacement_Write;
 
    --  -----------------
    --  New_Head_Position
@@ -74,6 +62,89 @@ package body Moves is
             return (Head_From.X + X_Dimension(Move.Dist), Head_From.Y);
       end case;
    end New_Head_Position;
+
+   --  -----------------
+   --  New_Knot_Position
+   --  -----------------
+   function New_Knot_Position (
+         This_Knot : Knot_record;
+         Tail_Pos, Head_From : Grid_Position;  
+         Move : Displacement;
+         History : in out Tail_History)
+         return Grid_Position
+   is
+      New_Tail : Grid_Position;
+      Head_To : Grid_Position;
+      Delta_X : X_Dimension;
+      Delta_Y : Y_Dimension;
+   begin
+      Head_To := New_Head_Position (Head_From, Move);
+      Delta_X := Tail_Pos.X - Head_From.X;
+      Delta_Y := Tail_Pos.Y - Head_From.Y;
+
+      New_Tail := Tail_Pos;
+      case Move.Dir is
+         when Up =>
+            if (Move.Dist = 1 and then Delta_Y >= 0) 
+            or (Move.Dist = 2 and then Delta_Y = 1)
+            then
+               null;
+            else  -- Delta_Y in -1
+               New_Tail.X := Head_To.X;
+               New_Tail.Y := Head_To.Y - 1 ;
+               for D_Y in 1 .. Y_Dimension (Move.Dist - 1) - Delta_Y loop
+                  if This_Knot.ID = Tail_Knot then
+                     Store_History (History, (Head_To.X, Head_To.Y - D_Y));
+                  end if;
+               end loop;
+            end if;
+         when Right =>
+            if (Move.Dist = 1 and then Delta_X >= 0)
+            or (Move.Dist = 2 and then Delta_X = 1)
+            then
+               null;
+            else -- Delta_X in -1
+               New_Tail.X := Head_To.X - 1;
+               New_Tail.Y := Head_To.Y;
+               for D_X in 1 .. X_Dimension (Move.Dist - 1) - Delta_X loop
+                  if This_Knot.ID = Tail_Knot then
+                     Store_History (History, (Head_To.X - D_X, Head_To.Y));
+                  end if;
+               end loop;
+            end if;
+         when Down =>
+            if (Move.Dist = 1 and then Delta_Y <= 0)
+            or (Move.Dist = 2 and then Delta_Y = -1)
+            then
+               null;
+            else -- Delta_Y in 1
+               New_Tail.Y := Head_To.Y + 1;
+               New_Tail.X := Head_To.X;
+              for D_Y in 1 .. Y_Dimension (Move.Dist - 1) + Delta_Y loop
+                  if This_Knot.ID = Tail_Knot then
+                     Store_History (History, (Head_To.X, Head_To.Y + D_Y));
+                  end if;
+               end loop;
+            end if;
+         when Left =>
+            if (Move.Dist = 1 and then Delta_X <= 0)
+            or (Move.Dist = 2 and then Delta_X = -1)
+            then
+               null;
+            else -- Delta_X in  1
+               New_Tail.X := Head_To.X + 1;
+               New_Tail.Y := Head_To.Y;
+               for D_X in 1 .. X_Dimension (Move.Dist - 1) + Delta_X loop
+                  if This_Knot.ID = Tail_Knot then
+                     Store_History (History, (Head_To.X + D_X, Head_To.Y));
+                  end if;
+               end loop;
+            end if;
+      end case;
+
+      return New_Tail;
+
+   end New_Knot_Position;
 
    --  -----------------
    --  New_Tail_Position
@@ -149,4 +220,4 @@ package body Moves is
 
    end New_Tail_Position;
 
-end Moves;
+end Ropes.Moves;
